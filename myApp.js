@@ -64,9 +64,17 @@ const findPersonById = (personId, done) => {
 
 const findEditThenSave = (personId, done) => {
   const foodToAdd = "hamburger";
-  Person.update({_id : personId},{favoriteFoods: foodToAdd}, favoriteFoods.markModified('edited-field'), function (err, personFound) {
+  Person.findById(personId, function (err, personFound) {
     if(err) return console.log(err);
-    done(null, personFound)
+
+    personFound.favoriteFoods.push(foodToAdd);
+
+    personFound.save(function (err, personFound) {
+      if(err) return console.log(err);
+      done(null, personFound)
+    })
+
+    // done(null, personFound)
   })
   // done(null /*, data*/);
 };
