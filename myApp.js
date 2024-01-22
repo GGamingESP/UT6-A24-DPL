@@ -5,12 +5,20 @@ const { Schema } = mongoose ;
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
 const personSchema = new Schema({
-  name: String,
-  age: Number,
-  favoriteFoods: [String]
-})
+  name: {
+    type: String,
+    required: true
+  },
+  age: {
+    type: Number
+  },
+  favoriteFoods: {
+    type: [String]
+  }
+  // You can add more fields, validators, and default values here if needed
+});
 
-let Person = mongoose.model("person", personSchema) ;
+let Person = mongoose.model("Person", personSchema) ;
 
 const createAndSavePerson = (done) => {
   done(null /*, data*/);
